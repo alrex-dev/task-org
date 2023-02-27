@@ -1,0 +1,393 @@
+<script setup>
+import { useCounterStore } from '@/stores/counter'
+</script>
+
+<template>
+  <div class="project">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-12 col-md-6 p-0">
+        
+            <div class="boxed-content" id="project-info">
+                <div class="boxed-content-inner">
+                    <div class="box-title container-fluid p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col col-7 p-0 d-flex align-items-center"><h2>Project Info</h2></div>
+                            <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
+                                <input type="text" class="search-text me-3" name="search-project" id="search-project" value="" />
+                                <a href="#" class="button add"><span class="icon"></span><span class="label">Add</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-main">
+                        <div class="box-main-wrapper">
+                            <div class="box-main-wrapper-inner">
+                            
+                                <div class="proj-details">
+                                    <div class="controls">
+                                        <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                        <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                    </div>
+                                    <div class="project-name">Liquid Promotions</div>
+                                    <div class="project-desc">This is just a test description about the Project.</div>
+                                    <div class="storage-link"><a href="#">Click here to open Storage</a></div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col col-12 col-md-6 p-0">
+        
+            <div class="boxed-content" id="credentials">
+                <div class="boxed-content-inner">
+                    <div class="box-title container-fluid p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col col-7 p-0 d-flex align-items-center"><h2>Credentials / Notes</h2></div>
+                            <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
+                                <input type="text" class="search-text me-3" name="search-notes" id="search-notes" value="" />
+                                <a href="#" class="button add"><span class="icon"></span><span class="label">Add</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-main">
+                        <div class="box-main-wrapper">
+                            <div class="box-main-wrapper-inner">
+                                <div class="item-group">
+                                    <div class="item-group-title"><h3>Admin</h3></div>
+                                    
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                    
+                                        <div class="label">link:</div>
+                                        <div class="value"><a href="">https://www.seasoulstudio.com/wp-admin</a></div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                    
+                                        <div class="label">user:</div>
+                                        <div class="value">admin</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        
+                                        <div class="label">pass:</div>
+                                        <div class="value">Dfrg$%6!Dd23435</div>
+                                    </div>
+                                    
+                                    <div class="controls">
+                                        <a href="#" class="button add-2"><span class="icon"></span><span class="label">Add</span></a>
+                                    </div>
+                                </div>
+                                <div class="item-group">
+                                    <div class="item-group-title"><h3>MySQL</h3></div>
+                                    
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        
+                                        <div class="label">name:</div>
+                                        <div class="value">berryshit</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        
+                                        <div class="label">user:</div>
+                                        <div class="value">root</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        
+                                        <div class="label">pass:</div>
+                                        <div class="value">$4654#!dfdf4554</div>
+                                    </div>
+                                    
+                                    <div class="controls">
+                                        <a href="#" class="button add-2"><span class="icon"></span><span class="label">Add</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col col-12 col-md-6 p-0">
+        
+            <div class="boxed-content" id="timelogs">
+                <div class="boxed-content-inner">
+                    <div class="box-title container-fluid p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col col-6 p-0 d-flex align-items-center"><h2>Time Logs</h2></div>
+                            <div class="col col-6 p-0 d-flex align-items-center justify-content-end">
+                                <input type="date" class="search-date" name="search-date-from" id="search-date-from" value="" />&nbsp;
+                                <input type="date" class="search-date" name="search-date-to" id="search-date-to" value="" />
+                                <!-- <a href="#" class="button add"><span class="icon"></span><span class="label">Add</span></a> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="box-cont container-fluid p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col col-8 p-0">
+                                <div class="box-main">
+                                    <div class="box-main-wrapper">
+                                        <div class="box-main-wrapper-inner">
+                                            <div class="time-items">
+                                                <div class="time-item">
+                                                    <div class="date">February 10, 2023 <span class="hrs">[3.50 hrs]</span></div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        09:01 am - 10:15 am <span class="hrs">[0.50 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        10:52 am - 11:40 am <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        01:01 pm - 02:40 pm <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="time-item">
+                                                    <div class="date">February 11, 2023 <span class="hrs">[2.00 hrs]</span></div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        09:01 am - 10:15 am <span class="hrs">[0.50 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        10:52 am - 11:40 am <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="time-item">
+                                                    <div class="date">February 10, 2023 <span class="hrs">[3.50 hrs]</span></div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        09:01 am - 10:15 am <span class="hrs">[0.50 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        10:52 am - 11:40 am <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        01:01 pm - 02:40 pm <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="time-item">
+                                                    <div class="date">February 11, 2023 <span class="hrs">[2.00 hrs]</span></div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        09:01 am - 10:15 am <span class="hrs">[0.50 hr]</span>
+                                                    </div>
+                                                    <div class="time">
+                                                        <div class="controls">
+                                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                                        </div>
+                                                        10:52 am - 11:40 am <span class="hrs">[0.23 hr]</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-4 p-0">
+                                <div class="button-cont mt-3 mb-4">
+                                    <button class="btn btn-primary">Start Session</button>
+                                </div>
+                                <div class="time-info"><span class="label">Today:</span> <span class="value">February 11, 2023</span></div>
+                                <div class="time-info mb-2"><span class="label">Running:</span> <span class="value">00:01</span></div>
+                                <div class="time-info-big">09:00 am - ...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col col-12 col-md-6 p-0">
+        
+            <div class="boxed-content" id="activities">
+                <div class="boxed-content-inner">
+                    <div class="box-title container-fluid p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col col-7 p-0 d-flex align-items-center"><h2>Activities</h2></div>
+                            <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
+                                <input type="text" class="search-text me-3" name="search-activity" id="search-activity" value="" />
+                                <a href="#" class="button add"><span class="icon"></span><span class="label">Add</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-main">
+                        <div class="box-main-wrapper">
+                            <div class="box-main-wrapper-inner">
+                                <div class="activity-item">
+                                    <div class="date">February 10, 2023</div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Changed menu item style
+                                        <div class="time">09:01 am - 10:15 am</div>
+                                    </div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Removed social icons
+                                        <div class="time">09:01 am - 10:15 am</div>
+                                    </div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Added phone number in the footer
+                                        <div class="time">10:52 am - 11:40 am</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="date">February 11, 2023</div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Backed up website files and database
+                                        <div class="time">09:01 am - 10:15 am</div>
+                                    </div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Updated wordpress from 6.0 to 6.1
+                                        <div class="time">09:01 am - 10:15 am</div>
+                                    </div>
+                                    <div class="action">
+                                        <div class="controls">
+                                            <a href="#" class="button edit-2 me-3"><span class="icon"></span><span class="label">Edit</span></a>
+                                            <a href="#" class="button delete-2"><span class="icon"></span><span class="label">Delete</span></a>
+                                        </div>
+                                        Updated the following plugins:<br>
+                                        - Akismith<br>
+                                        - Contact Form 7<br>
+                                        - Password Protected<br>
+                                        - Slider Revolution
+                                        <div class="time">10:52 am - 11:40 am</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    
+    <!--
+    <div>{{getUserID}}</div>
+    <button @click="setUser">Set User</button>
+    -->
+  </div>
+</template>
+
+<script>
+export default {
+  mounted() {
+    const cntr = useCounterStore()
+    
+    this.userids = cntr.count
+  },
+  data: function () {
+    return {
+        userids: 10
+    }
+  },
+  methods: {
+    setUser(e) {
+      //this.userid = 7
+      //alert(this.$userId);
+      //cntr.increment()
+      //testing
+      
+      const cntr = useCounterStore()
+      
+      cntr.increment()
+    } 
+  },
+  computed: {
+    getUserID() {
+      const cntr = useCounterStore()
+      const curr = cntr.count
+      
+      return curr
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

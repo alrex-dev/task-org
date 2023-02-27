@@ -1,0 +1,31 @@
+// Variable overrides first
+//$primary: #900;
+$primary: green;
+$enable-shadows: true;
+$prefix: "mo-";
+
+$header_height: 37px;
+
+$color_black: #000;
+$color_white: #fff;
+$color_dark: #333;
+$color_mid_dark: #999;
+$color_darkest: #212529;
+$color_light: #ccc;
+$color_lightest: #d9d9d9;
+$color_dark_teal: #273345;
+$color_mid_dark_teal: #3c4f6c;
+
+$font_size_title: 17px;
+$font_size_body: 14px;
+
+$cell_margin: 3px;
+
+$box_title_height: 25px;
+
+//$theme-colors: (
+//  "primary": $primary
+//);
+
+// Then import Bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";
