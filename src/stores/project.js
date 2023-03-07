@@ -9,9 +9,9 @@ export const useProjectStore = defineStore('project', () => {
   const data = ref([])
   const searchResults = ref([])
   const projID = ref('')
-  const apiURL = 'http://localhost:80/task-org/?entity=project'
-  const apiURL2 = 'http://localhost:80/task-org/?entity=session'
-  const apiURL3 = 'http://localhost:80/task-org/?entity=nodetask'
+  const apiURL = 'http://localhost:80/task-org-api/?entity=project'
+  const apiURL2 = 'http://localhost:80/task-org-api/?entity=session'
+  const apiURL3 = 'http://localhost:80/task-org-api/?entity=nodetask'
     
   function init() {
     //check for active session

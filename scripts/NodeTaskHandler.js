@@ -4,7 +4,7 @@ const axios = require('axios');
 const fs = require('fs');
 const cp = require('child_process');
 
-const apiURL = 'http://localhost:80/task-org/?entity=nodetask';
+const apiURL = 'http://localhost:80/task-org-api/?entity=nodetask';
 //const Promise = require('promise');
 
 

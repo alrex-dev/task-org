@@ -6,8 +6,8 @@ import { useProjectStore } from '@/stores/project'
 export const useCredentialStore = defineStore('credentials', () => {
   const data = ref([])
   const projectID = ref('')
-  const apiURL = 'http://localhost:80/task-org/?entity=credential'
-  const apiURL2 = 'http://localhost:80/task-org/?entity=credential-group'
+  const apiURL = 'http://localhost:80/task-org-api/?entity=credential'
+  const apiURL2 = 'http://localhost:80/task-org-api/?entity=credential-group'
   
   function saveItem(groupid, label, value, callback) {
 

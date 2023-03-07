@@ -9,8 +9,8 @@ export const useTimelogStore = defineStore('timelogs', () => {
   const sessionStarted = ref(false)
   const sessionData = ref(null)
   const projectID = ref('')
-  const apiURL = 'http://localhost:80/task-org/?entity=timelog'
-  const apiURL2 = 'http://localhost:80/task-org/?entity=session'
+  const apiURL = 'http://localhost:80/task-org-api/?entity=timelog'
+  const apiURL2 = 'http://localhost:80/task-org-api/?entity=session'
   
   function init() {
     //check for active session
