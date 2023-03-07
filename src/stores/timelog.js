@@ -64,6 +64,10 @@ export const useTimelogStore = defineStore('timelogs', () => {
 
     let sessData = this.sessionData
 
+    if (sessData.endDate > sessData.startDate && sessData.endTime != '00:00') {
+      sessData.endTime = '00:00';
+    }
+
     Axios.post(apiURL, {
       logRefID: sessData.id,
       logDate: sessData.startDate,
@@ -71,10 +75,6 @@ export const useTimelogStore = defineStore('timelogs', () => {
       timeTo: sessData.endTime,
       projID: project.projID
     }).then(function(response) {
-    
-      if (sessData.endDate > sessData.startDate && sessData.endTime != '00:00') {
-        sessData.endTime = '00:00';
-      }
       
       let found = false
       let log = {log_id: response.data.id, log_ref_id: sessData.id, log_from: sessData.startTime, log_to: sessData.endTime, log_hrs: 0}

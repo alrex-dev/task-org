@@ -1,6 +1,9 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import Axios from 'axios'
+//import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
+//import { LocalStorage } from 'node-localstorage'
+import store from 'store2'
 
 export const useProjectStore = defineStore('project', () => {
   const data = ref([])
@@ -8,6 +11,7 @@ export const useProjectStore = defineStore('project', () => {
   const projID = ref('')
   const apiURL = 'http://localhost:80/task-org/?entity=project'
   const apiURL2 = 'http://localhost:80/task-org/?entity=session'
+  const apiURL3 = 'http://localhost:80/task-org/?entity=nodetask'
     
   function init() {
     //check for active session
@@ -21,6 +25,40 @@ export const useProjectStore = defineStore('project', () => {
       projDesc: desc
     }).then(function(response) {
       self.setProject(response.data.projID, callback)
+      self.createProjectDir(response.data.projStorage)
+    })
+  }
+
+  function createProjectDir(name) {
+
+    /*
+    Filesystem.mkdir({
+      directory: Directory.Documents,
+      path: 'test', recursive: true,
+    }).then(() => {
+      console.log(arguments[0])
+    })
+    */
+    //let localStorage = new LocalStorage('./scratch'); 
+
+    //Setting localStorage Item
+    //localStorage.setItem('ProjectName', name)
+    //localStorage.ProjectName = name
+    //store('ProjName2', {job: 'Developer'})
+    //store.local({data: 'Crazy Project'});
+
+    Axios.post(apiURL3, {
+      task: 'mkdir',
+      taskData: 'dirname:' + name,
+    }).then(function(response) {
+    })
+  }
+
+  function openProjectDir(name) {
+    Axios.post(apiURL3, {
+      task: 'opendir',
+      taskData: 'dirname:' + name,
+    }).then(function(response) {
     })
   }
 
@@ -46,7 +84,8 @@ export const useProjectStore = defineStore('project', () => {
       id: 0,
       pid: '',
       name: '',
-      desc: ''
+      desc: '',
+      storage: ''
     }
   }
 
@@ -72,7 +111,8 @@ export const useProjectStore = defineStore('project', () => {
             id: response.data.id,
             pid: response.data.projID,
             name: response.data.projName,
-            desc: response.data.projDesc
+            desc: response.data.projDesc,
+            storage: response.data.projStorage
         }
       }
 
@@ -100,5 +140,5 @@ export const useProjectStore = defineStore('project', () => {
     })
   }
   
-  return { projID, data, setProject, saveProject, updateProject, deleteProject, searchProjects, searchResults, refresh, checkForSession }
+  return { projID, data, setProject, saveProject, updateProject, deleteProject, searchProjects, searchResults, refresh, checkForSession, createProjectDir, openProjectDir }
 })

@@ -47,7 +47,7 @@ import { Modal } from 'bootstrap'
                             <div style="white-space: pre" v-if="!isEdit">{{getProjDesc}}</div>
                             <div v-if="isEdit"><textarea class="w-100" name="proj-desc" rows="6" placeholder="" v-model="projDesc" ref="newActionInput"></textarea></div>
                         </div>
-                        <div class="storage-link"><a href="#">Click here to open Storage</a></div>
+                        <div class="storage-link"><a href="#" @click.prevent="openDir">Click here to open Storage</a></div>
                     </div>
 
                     <div v-if="!projectSelected">Select a Project!</div>
@@ -104,6 +104,7 @@ export default {
       projID: '',
       projName: '',
       projDesc: '',
+      projStorage: '',
       newProjName: '',
       newProjDesc: '',
       kw: '',
@@ -201,6 +202,7 @@ export default {
       this.projID = this.project.data.pid
       this.projName = this.project.data.name
       this.projDesc = this.project.data.desc
+      this.projStorage = this.project.data.storage
     },
     seachProject: function() {
       let self = this
@@ -229,6 +231,11 @@ export default {
     },
     enableAllBoxes: function() {
       this.$emit('enableAllBoxes')
+    },
+    openDir: function() {
+      //const cp = new child_process()
+      //exec('start "" "c:\\Vue"')
+      this.project.openProjectDir(this.projStorage)
     }
   },
   computed: {
