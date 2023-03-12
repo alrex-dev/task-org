@@ -2,13 +2,17 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import Moment from 'moment'
 import Axios from 'axios'
+
+import { useGlobalsStore } from '@/stores/globals'
 import { useProjectStore } from '@/stores/project'
 import { useTimelogStore } from '@/stores/timelog'
 
 export const useActivityStore = defineStore('activities', () => {
+  const globals = useGlobalsStore()
+  
   const data = ref([])
   const projectID = ref('')
-  const apiURL = 'http://localhost:80/task-org-api/?entity=activity'
+  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=activity'
   
   function init() {
     //check for active session

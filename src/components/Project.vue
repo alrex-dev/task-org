@@ -96,7 +96,7 @@ export default {
   mounted() {
     this.popup = new Modal('#addProjectPopup', {keyboard: false})
   },
-  emits: ['disableAllBoxes', 'enableAllBoxes'],
+  emits: ['disableAllBoxes', 'enableAllBoxes', 'setProjectCallback'],
   expose: ['setProjDetails', 'disableBox', 'enableBox'],
   data() {
     return {
@@ -203,6 +203,8 @@ export default {
       this.projName = this.project.data.name
       this.projDesc = this.project.data.desc
       this.projStorage = this.project.data.storage
+      
+      this.$emit('setProjectCallback')
     },
     seachProject: function() {
       let self = this

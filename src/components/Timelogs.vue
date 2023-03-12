@@ -59,14 +59,29 @@ export default {
     console.log('Created: Timelogs Component')
   },
   mounted() {
-    this.scrollBottom()
+    let self = this
+    let enter = false
+    
+    window.addEventListener('mousemove', function(e) {
+      if ( self.isTimelogComponentScope(e.target) && !enter ) {
+        enter = true
+        
+        self.$refs.scroller.addEventListener('scroll', self.locateActions)
+      } else if ( !self.isTimelogComponentScope(e.target) && enter) {
+        enter = false
+        
+        self.$refs.scroller.removeEventListener('scroll', self.locateActions)
+      }
+    })
   },
-  expose: ['checkExistingSession', 'disableBox', 'enableBox'],
+  expose: ['checkExistingSession', 'disableBox', 'enableBox', 'locateTimelogs', 'scrollBottom'],
+  emits: ['locateActions'],
   props: {
   },
   data() {
     return {
-      disabled: false
+      disabled: false,
+      throttleTO: null
     }
   },
   methods: {
@@ -88,6 +103,54 @@ export default {
     },
     enableBox: function() {
       this.disabled = false
+    },
+    locateActions: function() {
+      clearTimeout(this.throttleTO)
+      
+      let self = this
+      this.throttleTO = setTimeout(function() {
+        const timelogs = document.querySelectorAll('#timelogs .time-items .time-item')
+        let date_id = ''
+        let offsetTop = 0
+        
+        for(let x=0; x<timelogs.length; x++) {
+            offsetTop = timelogs[x].offsetTop - self.$refs.scrollerInner.offsetTop - 15
+            
+            if (offsetTop >= self.$refs.scroller.scrollTop) {
+                date_id = timelogs[x].id
+                break
+            }
+            
+           //console.log(timelogs[x].id, offsetTop, self.$refs.scroller.scrollTop)
+        }
+      
+        self.$emit('locateActions', date_id)
+      }, 50)
+    },
+    locateTimelogs: function(dateID) {
+      const timelogs = document.querySelectorAll('#timelogs .time-items .time-item')
+      let date_id = ''
+      let offsetTop = 0
+        
+      for(let x=0; x<timelogs.length; x++) {
+        if (timelogs[x].id == dateID) {
+          offsetTop = timelogs[x].offsetTop - this.$refs.scrollerInner.offsetTop - 15
+          
+          this.$refs.scroller.scrollTop = offsetTop
+          break;
+        }
+      }
+    },
+    isTimelogComponentScope: function(obj) {
+      if (obj.id == 'timelogs') {
+        return true;
+      } else {
+        if (obj.nodeName != 'BODY') {
+          return this.isTimelogComponentScope(obj.parentElement)
+        } else {
+          return false
+        }
+      }
     }
   },
   computed: {

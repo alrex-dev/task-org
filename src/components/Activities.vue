@@ -67,16 +67,40 @@ export default {
     console.log('Created: Activities Component')
   },
   mounted() {
+    let self = this
+    let enter = false
+    
+    window.addEventListener('mousemove', function(e) {
+      if ( self.isActivityComponentScope(e.target) && !enter ) {
+        enter = true
+        
+        self.$refs.scroller.addEventListener('scroll', self.locateTimelogs)
+      } else if ( !self.isActivityComponentScope(e.target) && enter) {
+        enter = false
+        
+        self.$refs.scroller.removeEventListener('scroll', self.locateTimelogs)
+      }
+    })
+    
     this.popup = new Modal('#addActivityPopup', {keyboard: false})
   },
-  expose: ['disableBox', 'enableBox'],
+  expose: ['disableBox', 'enableBox', 'locateActions', 'scrollBottom'],
+  emits: ['locateTimelogs'],
   data() {
     return {
       actionDesc: '',
-      disabled: false
+      disabled: false,
+      throttleTO: null
     }
   },
   methods: {
+    scrollBottom: function() {
+      let self = this
+      
+      setTimeout(function() {
+        self.$refs.scroller.scrollTop = self.$refs.scrollerInner.offsetHeight - self.$refs.scroller.offsetHeight
+      }, 500)
+    },
     addActivity: function() {
       if (typeof this.activities.projectID == 'undefined' || this.activities.projectID == '') {
         alert('No Project selected!')
@@ -102,11 +126,8 @@ export default {
       
       this.actionDesc = ''
       
-      let self = this
+      this.scrollBottom()
       
-      setTimeout(function() {
-        self.$refs.scroller.scrollTop = self.$refs.scrollerInner.offsetHeight - self.$refs.scroller.offsetHeight
-      }, 500)
       //console.log(this.$refs.scrollerInner.offsetHeight, this.$refs.scroller.offsetHeight);
     },
     modalShown: function() {
@@ -117,6 +138,54 @@ export default {
     },
     enableBox: function() {
       this.disabled = false
+    },
+    locateActions: function(dateID) {
+      const activities = document.querySelectorAll('#activities .activities .activity-item')
+      let date_id = ''
+      let offsetTop = 0
+        
+      for(let x=0; x<activities.length; x++) {
+        if (activities[x].id == dateID) {
+          offsetTop = activities[x].offsetTop - this.$refs.scrollerInner.offsetTop - 15
+          
+          this.$refs.scroller.scrollTop = offsetTop
+          break;
+        }
+      }
+    },
+    locateTimelogs: function() {
+      clearTimeout(this.throttleTO)
+      
+      let self = this
+      this.throttleTO = setTimeout(function() {
+        const activities = document.querySelectorAll('#activities .activities .activity-item')
+        let date_id = ''
+        let offsetTop = 0
+        
+        for(let x=0; x<activities.length; x++) {
+            offsetTop = activities[x].offsetTop - self.$refs.scrollerInner.offsetTop
+            
+            if (offsetTop >= self.$refs.scroller.scrollTop) {
+                date_id = activities[x].id
+                break
+            }
+            
+           //console.log(activities[x].id, offsetTop, self.$refs.scroller.scrollTop)
+        }
+      
+        self.$emit('locateTimelogs', date_id)
+      }, 50)
+    },
+    isActivityComponentScope: function(obj) {
+      if (obj.id == 'activities') {
+        return true;
+      } else {
+        if (obj.nodeName != 'BODY') {
+          return this.isActivityComponentScope(obj.parentElement)
+        } else {
+          return false
+        }
+      }
     }
   },
   computed: {

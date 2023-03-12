@@ -15,7 +15,7 @@ import { useActivityStore } from '@/stores/activity'
       <div class="row">
         <div class="col col-12 col-md-6 p-0">
         
-          <Project ref="projectComponent" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" />
+          <Project ref="projectComponent" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" @set-project-callback="setProjectCallback" />
             
         </div>
         <div class="col col-12 col-md-6 p-0">
@@ -29,12 +29,12 @@ import { useActivityStore } from '@/stores/activity'
       <div class="row">
         <div class="col col-12 col-md-6 p-0">
         
-          <Timelogs ref="timelogComponent" />
+          <Timelogs ref="timelogComponent" @locate-actions="locateActions" />
             
         </div>
         <div class="col col-12 col-md-6 p-0">
         
-          <Activities ref="activityComponent" />
+          <Activities ref="activityComponent" @locate-timelogs="locateTimelogs" />
             
         </div>
       </div>
@@ -57,12 +57,14 @@ export default {
 
     //Check for existing session and if found, set it as current project
     this.project.checkForSession(function() {
-      self.project.refresh()
+      //self.project.refresh()
       self.cred.refresh()
       self.timelogs.refresh()
       self.activities.refresh()
 
       self.$refs.projectComponent.setProjDetails()
+      
+      self.setProjectCallback()
 
       let self2 = self
 
@@ -108,6 +110,16 @@ export default {
       this.$refs.credentialComponent.enableBox()
       this.$refs.timelogComponent.enableBox()
       this.$refs.activityComponent.enableBox()
+    },
+    locateActions: function(dateID) {
+      this.$refs.activityComponent.locateActions(dateID)
+    },
+    locateTimelogs: function(dateID) {
+      this.$refs.timelogComponent.locateTimelogs(dateID)
+    },
+    setProjectCallback: function() {
+      this.$refs.timelogComponent.scrollBottom()
+      this.$refs.activityComponent.scrollBottom()
     }
   },
   computed: {

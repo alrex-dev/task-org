@@ -465,7 +465,7 @@ body {
         .item {
             position: relative;
             margin: 0;
-            padding: 5px 105px 5px 15px;
+            padding: 5px 120px 5px 15px;
             border-bottom: 1px dotted $color_mid_dark;
         }
         
@@ -480,8 +480,14 @@ body {
         .item > .controls {
             position: absolute;
             width: 90px;
+            height: 100%;
             top: 0;
             right: 15px;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
             text-align: right;
             user-select: none;
         }
@@ -499,6 +505,18 @@ body {
         
         .item > .value a {
             color: $color_darkest;
+        }
+        
+        .item > .value .copy-to-clipboard {
+            display: none;
+            width: 14px;
+            margin-left: 50px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .item:hover > .value .copy-to-clipboard {
+            display: inline-block;
         }
     }
 }
@@ -595,7 +613,7 @@ body {
         
         .action {
             position: relative;
-            padding: 5px 105px 5px 15px;
+            padding: 7px 120px 10px 15px;
             font-size: 15px;
             border-bottom: 1px dotted $color_mid_dark;
         }
@@ -610,9 +628,15 @@ body {
         
         .action > .controls {
             position: absolute;
+            height: 100%;
             width: 90px;
             top: 0;
             right: 15px;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
             text-align: right;
             user-select: none;
         }

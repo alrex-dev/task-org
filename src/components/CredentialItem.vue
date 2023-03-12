@@ -1,5 +1,7 @@
 <script setup>
 import { useCredentialStore } from '@/stores/credential'
+import { Tooltip } from 'bootstrap'
+import Popper from 'popper.js'
 </script>
 
 <template>
@@ -14,6 +16,7 @@ import { useCredentialStore } from '@/stores/credential'
 <div class="value" @dblclick.prevent="editItem" v-if="!isEdit">
     <a :href="itemData.c_item_value" target="_blank" v-if="isLink(itemData.c_item_value)">{{itemData.c_item_value}}</a>
     <span v-if="!isLink(itemData.c_item_value)">{{itemData.c_item_value}}</span>
+    <img :id="clipboardID" src="@/assets/icons/clipboard.png" class="copy-to-clipboard" @click="copyToClipboard" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy to clipboard">
 </div>
 
 <div v-if="isEdit">
@@ -30,6 +33,11 @@ export default {
     this.itemID = this.itemData.c_item_id
     this.itemLabel = this.itemData.c_item_label
     this.itemValue = this.itemData.c_item_value
+    
+    this.clipboardID = 'copy-to-clipboard-' + this.itemID
+  },
+  mounted() {
+    this.attachTooltip()
   },
   emits: ['disableBox', 'enableBox'],
   props: {
@@ -42,7 +50,9 @@ export default {
       itemID: 0,
       itemLabel: '',
       itemValue: '',
-      isEdit: false
+      isEdit: false,
+      //publicPath: process.env.BASE_URL
+      clipboardID: ''
     }
   },
   methods: {
@@ -72,9 +82,21 @@ export default {
       this.cred.updateItem(this.itemID, this.itemLabel, this.itemValue, this.enableBox)
       
       this.isEdit = false
+      
+      this.$nextTick(
+        function () {
+          this.attachTooltip()
+        }.bind(this)
+      )
     },
     cancelEdit: function() {
       this.isEdit = false
+      
+      this.$nextTick(
+        function () {
+          this.attachTooltip()
+        }.bind(this)
+      )
     },
     deleteItem: function() {
       if (confirm('Delete this item?')) {
@@ -88,6 +110,15 @@ export default {
     },
     enableBox: function() {
       this.$emit('enableBox')
+    },
+    copyToClipboard: function() {
+      navigator.clipboard.writeText(this.itemValue);
+    },
+    attachTooltip: function() {
+      const tooltip = new Tooltip(('#' + this.clipboardID), {
+      title: 'Copy',
+      placement: 'top'
+    })
     }
   },
   computed: {

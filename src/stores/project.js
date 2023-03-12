@@ -1,17 +1,22 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import Axios from 'axios'
+
+import { useGlobalsStore } from '@/stores/globals'
+
 //import { Filesystem, Directory, Encoding } from '@capacitor/filesystem'
 //import { LocalStorage } from 'node-localstorage'
-import store from 'store2'
+//import store from 'store2'
 
 export const useProjectStore = defineStore('project', () => {
+  const globals = useGlobalsStore()
+  
   const data = ref([])
   const searchResults = ref([])
   const projID = ref('')
-  const apiURL = 'http://localhost:80/task-org-api/?entity=project'
-  const apiURL2 = 'http://localhost:80/task-org-api/?entity=session'
-  const apiURL3 = 'http://localhost:80/task-org-api/?entity=nodetask'
+  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=project'
+  const apiURL2 = globals.apiURLRoot + '/task-org-api/?entity=session'
+  const apiURL3 = globals.apiURLRoot + '/task-org-api/?entity=nodetask'
     
   function init() {
     //check for active session
@@ -106,7 +111,7 @@ export const useProjectStore = defineStore('project', () => {
     Axios.get(apiURL, {params: {projID: projID}}).then(function(response) {
       if (response) {
         self.projID = response.data.projID
-
+        
         self.data = {
             id: response.data.id,
             pid: response.data.projID,

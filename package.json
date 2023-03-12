@@ -16,6 +16,7 @@
     "node-localstorage": "^2.2.1",
     "npm-commands": "^1.1.0",
     "pinia": "^2.0.30",
+    "popper.js": "^1.16.1",
     "sass": "^1.58.0",
     "store2": "^2.14.2",
     "vue": "^3.2.45",

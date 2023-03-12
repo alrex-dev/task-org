@@ -1,13 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import Axios from 'axios'
+
+import { useGlobalsStore } from '@/stores/globals'
 import { useProjectStore } from '@/stores/project'
 
 export const useCredentialStore = defineStore('credentials', () => {
+  const globals = useGlobalsStore()
+  
   const data = ref([])
   const projectID = ref('')
-  const apiURL = 'http://localhost:80/task-org-api/?entity=credential'
-  const apiURL2 = 'http://localhost:80/task-org-api/?entity=credential-group'
+  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=credential'
+  const apiURL2 = globals.apiURLRoot + '/task-org-api/?entity=credential-group'
   
   function saveItem(groupid, label, value, callback) {
 
