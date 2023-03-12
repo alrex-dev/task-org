@@ -174,7 +174,7 @@ export default {
         }
       
         self.$emit('locateTimelogs', date_id)
-      }, 50)
+      }, 10)
     },
     isActivityComponentScope: function(obj) {
       if (obj.id == 'activities') {

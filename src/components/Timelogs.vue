@@ -125,7 +125,7 @@ export default {
         }
       
         self.$emit('locateActions', date_id)
-      }, 50)
+      }, 10)
     },
     locateTimelogs: function(dateID) {
       const timelogs = document.querySelectorAll('#timelogs .time-items .time-item')
