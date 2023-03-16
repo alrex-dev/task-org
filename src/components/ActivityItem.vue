@@ -12,7 +12,7 @@ import Moment from 'moment'
     <a href="#" class="button cancel-2" @click.prevent="cancelEdit" v-if="isEdit"><span class="icon"></span><span class="label">Cancel</span></a>
 </div>
 <div v-if="isEdit"><textarea class="w-100" rows="4" v-model="actionDesc" placeholder="" ref="editActionInput" @keyup.esc="cancelEdit"></textarea></div>
-<div style="white-space: pre" @dblclick.prevent="editActivity" v-if="!isEdit">{{act.action_desc}}</div>
+<div style="white-space: pre-wrap" @dblclick.prevent="editActivity" v-if="!isEdit">{{act.action_desc}}</div>
 <div class="time">{{getTimeInfo}}</div>
 </template>
 

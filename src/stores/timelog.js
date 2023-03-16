@@ -68,12 +68,65 @@ export const useTimelogStore = defineStore('timelogs', () => {
 
     let sessData = this.sessionData
 
+    //The original ID needs to be intact as this is used to delete the session
+    let sessID = sessData.id
+
     if (sessData.endDate > sessData.startDate && sessData.endTime != '00:00') {
-      sessData.endTime = '00:00';
+      //TO DO: Compute hour difference then check if less than 8
+      //    If less than 8 then it's graveyard shift
+      //        Create two logs for this
+      //    If more than 8
+      //        Create two logs where the End Time should be the end time for the max hours (8)
+
+      //let startDateTime = Moment((sessData.startDate + ' ' + sessData.startTime), 'YYYY-MM-DD HH:mm')
+      //let endDateTime = Moment((sessData.endDate + ' ' + sessData.endTime), 'YYYY-MM-DD HH:mm')
+
+      //let diff = endDateTime.diff(startDateTime, 'minutes')
+      //let hrDiff = diff / 60
+
+      //console.log(diff)
+
+      const sessData2 = {
+        id: sessData.id,
+        startDate: sessData.startDate,
+        startTime: sessData.startTime,
+        endDate: sessData.startDate,
+        endTime: '00:00'
+      }
+
+      //Save the first log
+      Axios.post(apiURL, {
+        logRefID: sessData2.id,
+        logDate: sessData2.startDate,
+        timeFrom: sessData2.startTime,
+        timeTo: '00:00',
+        projID: project.projID
+      }).then(function(response) {
+        let found = false
+        let log = {log_id: response.data.id, log_ref_id: sessData2.id, log_from: sessData2.startTime, log_to: sessData2.endTime, log_hrs: 0}
+        
+        for(let x=0; x<data.value.length; x++) {
+          if (data.value[x].log_date == sessData2.startDate) {
+            found = true
+            data.value[x].tlogs.push(log)
+          }
+        }
+        
+        if (!found) {
+          data.value.push({log_date_id: sessData2.startDate.replace(/-/g, ''), log_date: sessData2.startDate, log_date_hrs: 0, tlogs: [log]})
+        }
+      })
+
+      //set ID for the second log
+      sessID = Moment().format('YYYYMMDDHHmmss') + Math.ceil((Math.random() * 100))
+      sessData.startDate = sessData.endDate
+      sessData.startTime = '00:00';
+        
+      //sessData.endTime = '00:00';
     }
 
     Axios.post(apiURL, {
-      logRefID: sessData.id,
+      logRefID: sessID,
       logDate: sessData.startDate,
       timeFrom: sessData.startTime,
       timeTo: sessData.endTime,

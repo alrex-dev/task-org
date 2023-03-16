@@ -89,6 +89,17 @@ export default {
       let nowTime = Moment().format('HH:mm')
       let startTime = this.startDateTime.format('HH:mm')
       let diff = Moment(nowTime, 'HH:mm').diff(Moment(startTime, 'HH:mm'), 'minutes')
+
+      let nowDay = Moment().format('YYYY-MM-DD')
+      let startDay = this.startDateTime.format('YYYY-MM-DD')
+
+      if ( nowDay > startDay ) {
+        let diff2 = Moment(nowDay, 'YYYY-MM-DD').diff( Moment(startDay, 'YYYY-MM-DD'), 'minutes' )
+        
+        diff += diff2
+      }
+      
+      //console.log( diff2 )
       
       let startSec = this.startDateTime.format('ss')
       let startMin = startSec / 60
@@ -110,6 +121,7 @@ export default {
       
       this.compHrs = '[' + computedHrs.toFixed(2) + ' ' + ((computedHrs > 1) ? 'hrs' : 'hr') + ']'
     },
+
     /*
     tickTock: function() {
       let nowTime = Moment().format('HH:mm:ss')
@@ -128,12 +140,16 @@ export default {
       //this.sec = (sec.toString().length < 2) ? '0' + sec.toString() : sec.toString();
     },
     */
+
     setToday: function() {
       this.nowDate = Moment()
       
       //Force stop session and start another session
       //if (this.isStarted && (this.nowDate.format('HH:mm:ss') == '10:30:00')) {
       //if (this.isStarted && (this.nowDate.format('YYYY-MM-DD') > this.startDateTime.format('YYYY-MM-DD')) && (this.nowDate.format('HH:mm') >= '00:00')) {
+      
+      /*
+      //NOTE: Move this to algorithm to the Button event.
       if (this.isStarted && (this.nowDate.format('YYYY-MM-DD') > this.startDateTime.format('YYYY-MM-DD'))) {
         let endDateTime = Moment()
         
@@ -146,6 +162,8 @@ export default {
         //this.tickTock()
         this.tickTockIntervalID = setInterval(this.tickTock, 1000)
       }
+      */
+      
       //let self = this
       
       //this.getTodayTO = setTimeout(this.getToday, 1000)
