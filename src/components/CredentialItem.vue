@@ -13,7 +13,7 @@ import Popper from 'popper.js'
 </div>
 
 <div class="label" @dblclick.prevent="editItem" v-if="!isEdit">{{itemData.c_item_label}}:</div>
-<div class="value" @dblclick.prevent="editItem" v-if="!isEdit">
+<div style="white-space: pre-wrap" class="value" @dblclick.prevent="editItem" v-if="!isEdit">
     <a :href="itemData.c_item_value" target="_blank" v-if="isLink(itemData.c_item_value)">{{itemData.c_item_value}}</a>
     <span v-if="!isLink(itemData.c_item_value)">{{itemData.c_item_value}}</span>
     <img :id="clipboardID" src="@/assets/icons/clipboard.png" class="copy-to-clipboard" @click="copyToClipboard" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy to clipboard">

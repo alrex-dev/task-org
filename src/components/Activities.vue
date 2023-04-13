@@ -5,16 +5,17 @@ import { Modal } from 'bootstrap'
 </script>
 
 <template>
-<div class="boxed-content" :class="isDisabled" id="activities">
+<div class="boxed-content" :class="[isDisabled, isExpanded]" id="activities">
     <div class="boxed-content-inner">
         <div class="box-title container-fluid p-0">
             <div class="row m-0 p-0">
                 <div class="col col-4 p-0 d-flex align-items-center"><h2>Actions</h2></div>
                 <div class="col col-8 p-0 d-flex align-items-center justify-content-end">
-                    <input type="text" class="search-text w-25 me-3" name="search-activity" id="search-activity" value="" placeholder="Search" />
-                    <input type="date" class="search-date" name="search-date-from" id="search-date-from" value="" />&nbsp;
-                    <input type="date" class="search-date me-3" name="search-date-to" id="search-date-to" value="" />
-                    <a href="#" class="button add" @click.prevent="addActivity"><span class="icon"></span><span class="label">Add</span></a>
+                  <a href="#" class="button add me-3" @click.prevent="addActivity"><span class="icon"></span><span class="label">Add</span></a>
+                  <input type="text" class="search-text w-25 me-3" name="search-activity" id="search-activity" value="" placeholder="Search" />
+                  <input type="date" class="search-date" name="search-date-from" id="search-date-from" value="" />&nbsp;
+                  <input type="date" class="search-date me-3" name="search-date-to" id="search-date-to" value="" />
+                  <a href="#" class="button expand" :class="expandButtonIcon" @click.prevent="toggleExpand"><span class="icon"></span><span class="label">{{expandButtonText}}</span></a>
                 </div>
             </div>
         </div>
@@ -90,7 +91,10 @@ export default {
     return {
       actionDesc: '',
       disabled: false,
-      throttleTO: null
+      throttleTO: null,
+      expanded: false,
+      expandButtonText: 'Max',
+      expandButtonIcon: 'max'
     }
   },
   methods: {
@@ -186,6 +190,11 @@ export default {
           return false
         }
       }
+    },
+    toggleExpand: function() {
+      this.expanded = this.expanded ? false : true
+      this.expandButtonText = this.expanded ? 'Min' : 'Max'
+      this.expandButtonIcon = this.expanded ? 'min' : 'max'
     }
   },
   computed: {
@@ -202,6 +211,9 @@ export default {
     },
     isDisabled() {
       return (this.disabled) ? 'disabled' : ''
+    },
+    isExpanded() {
+      return (this.expanded) ? 'fullscreen' : ''
     }
   }
 }

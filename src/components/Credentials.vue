@@ -5,14 +5,15 @@ import { Modal } from 'bootstrap'
 </script>
 
 <template>
-<div class="boxed-content" :class="isDisabled" id="credentials">
+<div class="boxed-content" :class="[isDisabled, isExpanded]" id="credentials">
     <div class="boxed-content-inner">
         <div class="box-title container-fluid p-0">
             <div class="row m-0 p-0">
                 <div class="col col-7 p-0 d-flex align-items-center"><h2>Access Notes</h2></div>
                 <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
-                    <input type="text" class="search-text me-3" name="search-notes" id="search-notes" value="" placeholder="Search" />
-                    <a href="#" class="button add" @click.prevent="addAccessNote"><span class="icon"></span><span class="label">Add</span></a>
+                  <a href="#" class="button add me-3" @click.prevent="addAccessNote"><span class="icon"></span><span class="label">Add</span></a>
+                  <input type="text" class="search-text me-3" name="search-notes" id="search-notes" value="" placeholder="Search" />
+                  <a href="#" class="button expand" :class="expandButtonIcon" @click.prevent="toggleExpand"><span class="icon"></span><span class="label">{{expandButtonText}}</span></a>
                 </div>
             </div>
         </div>
@@ -73,7 +74,10 @@ export default {
       groupName: '',
       credLabel: '',
       credValue: '',
-      disabled: false
+      disabled: false,
+      expanded: false,
+      expandButtonText: 'Max',
+      expandButtonIcon: 'max'
     }
   },
   methods: {
@@ -116,6 +120,11 @@ export default {
     },
     enableBox: function() {
       this.disabled = false
+    },
+    toggleExpand: function() {
+      this.expanded = this.expanded ? false : true
+      this.expandButtonText = this.expanded ? 'Min' : 'Max'
+      this.expandButtonIcon = this.expanded ? 'min' : 'max'
     }
   },
   computed: {
@@ -135,6 +144,9 @@ export default {
     },
     isDisabled() {
       return (this.disabled) ? 'disabled' : ''
+    },
+    isExpanded() {
+      return (this.expanded) ? 'fullscreen' : ''
     }
   }
 }
