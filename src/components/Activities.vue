@@ -2,6 +2,7 @@
 import { useActivityStore } from '@/stores/activity'
 import ActivityGroup from '@/components/ActivityGroup.vue'
 import { Modal } from 'bootstrap'
+import moment from 'moment'
 </script>
 
 <template>
@@ -9,12 +10,12 @@ import { Modal } from 'bootstrap'
     <div class="boxed-content-inner">
         <div class="box-title container-fluid p-0">
             <div class="row m-0 p-0">
-                <div class="col col-4 p-0 d-flex align-items-center"><h2>Actions</h2></div>
+                <div class="col col-4 p-0 d-flex align-items-center"><h2>Actions</h2><div class="filtered-label d-inline-block ms-2" v-if="isFiltered()">Filtered</div></div>
                 <div class="col col-8 p-0 d-flex align-items-center justify-content-end">
                   <a href="#" class="button add me-3" @click.prevent="addActivity"><span class="icon"></span><span class="label">Add</span></a>
-                  <input type="text" class="search-text w-25 me-3" name="search-activity" id="search-activity" value="" placeholder="Search" />
-                  <input type="date" class="search-date" name="search-date-from" id="search-date-from" value="" />&nbsp;
-                  <input type="date" class="search-date me-3" name="search-date-to" id="search-date-to" value="" />
+                  <input type="text" class="search-text w-25 me-3" name="search-activity" id="search-activity" placeholder="Search" v-model="kw" @keyup.prevent="searchActivity" />
+                  <input type="date" class="search-date" name="search-date-from" id="search-date-from" v-model="filterDateFrom" @blur.prevent="searchActivity" />&nbsp;
+                  <input type="date" class="search-date me-3" name="search-date-to" id="search-date-to" v-model="filterDateTo" @blur.prevent="searchActivity" />
                   <a href="#" class="button expand" :class="expandButtonIcon" @click.prevent="toggleExpand"><span class="icon"></span><span class="label">{{expandButtonText}}</span></a>
                 </div>
             </div>
@@ -94,10 +95,16 @@ export default {
       throttleTO: null,
       expanded: false,
       expandButtonText: 'Max',
-      expandButtonIcon: 'max'
+      expandButtonIcon: 'max',
+      kw: '',
+      filterDateFrom: '',
+      filterDateTo: ''
     }
   },
   methods: {
+    isFiltered: function() {
+      return (this.kw.trim() != '' || this.filterDateFrom.trim() != '' || this.filterDateTo.trim() != '') ? true : false;
+    },
     scrollBottom: function() {
       let self = this
       
@@ -182,7 +189,7 @@ export default {
     },
     isActivityComponentScope: function(obj) {
       if (obj.id == 'activities') {
-        return true;
+        return true
       } else {
         if (obj.nodeName != 'BODY') {
           return this.isActivityComponentScope(obj.parentElement)
@@ -195,6 +202,27 @@ export default {
       this.expanded = this.expanded ? false : true
       this.expandButtonText = this.expanded ? 'Min' : 'Max'
       this.expandButtonIcon = this.expanded ? 'min' : 'max'
+    },
+    searchActivity: function() {
+      if (typeof this.activities.projectID == 'undefined' || this.activities.projectID == '') {
+        this.kw = ''
+        this.filterDateFrom = ''
+        this.filterDateTo = ''
+        alert('No Project selected!')
+        return
+      }
+
+      //let dateF = moment(this.filterDateFrom)
+      //let dateT = moment(this.filterDateTo)
+
+      //console.log(dateF.isValid())
+
+      if (this.kw == '' && this.filterDateFrom == '' && this.filterDateTo == '') {
+        this.activities.refresh()
+        //return
+      } else {
+        this.activities.search(this.kw, this.filterDateFrom, this.filterDateTo)
+      }
     }
   },
   computed: {

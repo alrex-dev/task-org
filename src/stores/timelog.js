@@ -218,8 +218,10 @@ export const useTimelogStore = defineStore('timelogs', () => {
   }
 
   function checkForExistingSession(callback) {
+    const project = useProjectStore()
+
     //Check if there is a saved session
-    Axios.get(apiURL2, {params: {}}).then(function(response) {
+    Axios.get(apiURL2, {params: {projID: project.projID}}).then(function(response) {
       if (typeof response.data.sessID != 'undefined' && response.data.sessID != '') {
         sessionData.value = {
           id: response.data.sessID,

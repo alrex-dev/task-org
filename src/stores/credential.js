@@ -140,6 +140,21 @@ export const useCredentialStore = defineStore('credentials', () => {
 
     })
   }
+
+  function search(kw) {
+    const project = useProjectStore()
+    const projID = project.projID
+
+    if (typeof projID != 'undefined' && projID != '') {
+      let self = this
+
+      Axios.get(apiURL, {params: {projID: projID, kw: kw}}).then(function(response) {
+        self.data = response.data
+      })
+    } else {
+      data.value = []
+    }
+  }
   
   function refresh() {
     const project = useProjectStore()
@@ -159,5 +174,5 @@ export const useCredentialStore = defineStore('credentials', () => {
     }
   }
 
-  return { data, projectID, saveItem, updateItem, deleteItem, saveGroup, updateGroup, deleteGroup, refresh }
+  return { data, projectID, saveItem, updateItem, deleteItem, saveGroup, updateGroup, deleteGroup, search, refresh }
 })

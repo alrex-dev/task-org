@@ -15,7 +15,7 @@ import { useActivityStore } from '@/stores/activity'
       <div class="row">
         <div class="col col-12 col-md-6 p-0">
         
-          <Project ref="projectComponent" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" @set-project-callback="setProjectCallback" />
+          <Project ref="projectComponent" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" @set-project-callback="setProjectCallback" @check-existing-session="checkForExistingSession" />
             
         </div>
         <div class="col col-12 col-md-6 p-0">
@@ -55,6 +55,10 @@ export default {
 
     this.disableAllBoxes()
 
+    /**
+     * Multiple session is now enabled
+     * Sep 4, 2023
+    
     //Check for existing session and if found, set it as current project
     this.project.checkForSession(function() {
       //self.project.refresh()
@@ -90,6 +94,17 @@ export default {
 
       self.enableAllBoxes()
     })
+    */
+
+    self.project.refresh()
+    self.cred.refresh()
+    self.timelogs.refresh()
+    self.activities.refresh()
+
+    self.$refs.projectComponent.setProjDetails()
+
+    self.enableAllBoxes()
+
   },
   data: function () {
     return {
@@ -120,6 +135,21 @@ export default {
     setProjectCallback: function() {
       this.$refs.timelogComponent.scrollBottom()
       this.$refs.activityComponent.scrollBottom()
+    },
+    checkForExistingSession: function() {
+      //trigger checkExistingSession function in Session Control component
+      //this.$refs.timelogComponent.enableBox()
+      //this.$refs.timelogComponent.checkExistingSession()
+      let self = this
+
+      this.$refs.timelogComponent.disableBox()
+      
+      this.timelogs.checkForExistingSession(function() {
+        //trigger checkExistingSession function in Session Control component
+        self.$refs.timelogComponent.enableBox()
+
+        self.$refs.timelogComponent.checkExistingSession()
+      })
     }
   },
   computed: {

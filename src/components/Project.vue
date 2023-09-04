@@ -15,11 +15,11 @@ import { Modal } from 'bootstrap'
                 <div class="col col-7 p-0 d-flex align-items-center"><h2>Project Info</h2></div>
                 <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
                     <div class="search-with-dropdown-cont me-3">
-                        <input type="text" class="search-text" name="search-project" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="seachProject" />
+                        <input type="text" class="search-text" name="search-project" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="searchProject" />
                         <div class="search-results" :class="showResults">
                             <div class="search-results-inner">
                                 <div class="search-result-item" v-for="s in searchResults" :key="s.id">
-                                    <SearchResultItem :itemData="s" @set-proj-details="setProjDetails" @reset-search="resetSearch" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" />
+                                    <SearchResultItem :itemData="s" @set-proj-details="setProjDetails" @check-existing-session="checkForExistingSession" @reset-search="resetSearch" @disable-all-boxes="disableAllBoxes" @enable-all-boxes="enableAllBoxes" />
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ export default {
   mounted() {
     this.popup = new Modal('#addProjectPopup', {keyboard: false})
   },
-  emits: ['disableAllBoxes', 'enableAllBoxes', 'setProjectCallback'],
+  emits: ['disableAllBoxes', 'enableAllBoxes', 'setProjectCallback', 'checkExistingSession'],
   expose: ['setProjDetails', 'disableBox', 'enableBox'],
   data() {
     return {
@@ -206,7 +206,7 @@ export default {
       
       this.$emit('setProjectCallback')
     },
-    seachProject: function() {
+    searchProject: function() {
       let self = this
 
       if (this.kw == '') {
@@ -217,6 +217,9 @@ export default {
       this.project.searchProjects(this.kw, function() {
         self.searchResults = self.project.searchResults
       })
+    },
+    checkForExistingSession: function() {
+      this.$emit('checkExistingSession')
     },
     resetSearch: function() {
       this.kw = ''

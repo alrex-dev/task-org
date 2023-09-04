@@ -9,10 +9,10 @@ import { Modal } from 'bootstrap'
     <div class="boxed-content-inner">
         <div class="box-title container-fluid p-0">
             <div class="row m-0 p-0">
-                <div class="col col-7 p-0 d-flex align-items-center"><h2>Access Notes</h2></div>
+                <div class="col col-7 p-0 d-flex align-items-center"><h2>Access Notes</h2><div class="filtered-label d-inline-block ms-2" v-if="isFiltered()">Filtered</div></div>
                 <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
                   <a href="#" class="button add me-3" @click.prevent="addAccessNote"><span class="icon"></span><span class="label">Add</span></a>
-                  <input type="text" class="search-text me-3" name="search-notes" id="search-notes" value="" placeholder="Search" />
+                  <input type="text" class="search-text me-3" name="search-notes" id="search-notes" placeholder="Search" v-model="kw" @keyup.prevent="searchCredential" />
                   <a href="#" class="button expand" :class="expandButtonIcon" @click.prevent="toggleExpand"><span class="icon"></span><span class="label">{{expandButtonText}}</span></a>
                 </div>
             </div>
@@ -77,10 +77,14 @@ export default {
       disabled: false,
       expanded: false,
       expandButtonText: 'Max',
-      expandButtonIcon: 'max'
+      expandButtonIcon: 'max',
+      kw: ''
     }
   },
   methods: {
+    isFiltered: function() {
+      return (this.kw.trim() != '') ? true : false;
+    },
     addAccessNote: function() {
       if (typeof this.cred.projectID == 'undefined' || this.cred.projectID == '') {
         alert('No Project selected!')
@@ -125,6 +129,22 @@ export default {
       this.expanded = this.expanded ? false : true
       this.expandButtonText = this.expanded ? 'Min' : 'Max'
       this.expandButtonIcon = this.expanded ? 'min' : 'max'
+    },
+    searchCredential: function() {
+      if (typeof this.cred.projectID == 'undefined' || this.cred.projectID == '') {
+        this.kw = ''
+        alert('No Project selected!')
+        return
+      }
+
+      if (this.kw == '') {
+        this.cred.refresh()
+        //return
+      } else {
+        this.cred.search(this.kw)
+      }
+
+      //console.log(this.kw)
     }
   },
   computed: {

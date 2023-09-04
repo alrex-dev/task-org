@@ -348,6 +348,15 @@ body {
             color: $color_mid_dark_teal;
             //border-bottom: 1px dotted $color_dark_teal;
         }
+
+        .boxed-content .box-title .filtered-label {
+            padding: 1px 7px;
+            font-size: 10px;
+            text-transform: uppercase;
+            background-color: #008000;
+            color: #fff;
+            border-radius: 2px;
+        }
         
         .boxed-content .box-title .search-text,
         .boxed-content .box-title .search-date {

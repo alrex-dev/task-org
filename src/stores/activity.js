@@ -120,6 +120,21 @@ export const useActivityStore = defineStore('activities', () => {
 
     })
   }
+
+  function search(kw, dateFrom, dateTo) {
+    const project = useProjectStore()
+    const projID = project.projID
+
+    if (typeof projID != 'undefined' && projID != '') {
+      let self = this
+
+      Axios.get(apiURL, {params: {projID: projID, kw: kw, dateFrom: dateFrom, dateTo: dateTo}}).then(function(response) {
+        self.data = response.data
+      })
+    } else {
+      data.value = []
+    }
+  }
   
   function refresh() {
     const project = useProjectStore()
@@ -160,5 +175,5 @@ export const useActivityStore = defineStore('activities', () => {
   
   //this.init()
 
-  return { data, projectID, saveActivity, saveActivity2, updateActivity, deleteActivity, refresh, updateActivityTime }
+  return { data, projectID, saveActivity, saveActivity2, updateActivity, deleteActivity, search, refresh, updateActivityTime }
 })

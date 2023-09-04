@@ -20,7 +20,7 @@ export default {
     this.projID = this.itemData.proj_id
     this.projName = this.itemData.proj_name
   },
-  emits: ['setProjDetails', 'resetSearch', 'disableAllBoxes', 'enableAllBoxes'],
+  emits: ['setProjDetails', 'checkExistingSession', 'resetSearch', 'disableAllBoxes', 'enableAllBoxes'],
   props: {
     itemData: {
       type: Object
@@ -50,6 +50,7 @@ export default {
         self.activities.refresh()
 
         self.$emit('setProjDetails')
+        self.$emit('checkExistingSession')
         self.$emit('resetSearch')
 
         self.enableAllBoxes()
