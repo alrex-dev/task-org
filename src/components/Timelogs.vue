@@ -9,10 +9,10 @@ import SessionControl from '@/components/SessionControl.vue'
     <div class="boxed-content-inner">
         <div class="box-title container-fluid p-0">
             <div class="row m-0 p-0">
-                <div class="col col-6 p-0 d-flex align-items-center"><h2>Time Logs</h2></div>
+                <div class="col col-6 p-0 d-flex align-items-center"><h2>Time Logs</h2><div class="filtered-label d-inline-block ms-2" v-if="isFiltered()">Filtered</div></div>
                 <div class="col col-6 p-0 d-flex align-items-center justify-content-end">
-                    <input type="date" class="search-date" name="search-date-from" id="search-date-from" v-on:change="filterLogs"/>&nbsp;
-                    <input type="date" class="search-date" name="search-date-to" id="search-date-to" />
+                    <input type="date" class="search-date" name="search-date-from" id="search-date-from" v-model="filterDateFrom" @blur.prevent="searchTimelogs" />&nbsp;
+                    <input type="date" class="search-date" name="search-date-to" id="search-date-to" v-model="filterDateTo" @blur.prevent="searchTimelogs" />
                     <!-- <a href="#" class="button add"><span class="icon"></span><span class="label">Add</span></a> -->
                 </div>
             </div>
@@ -31,8 +31,8 @@ import SessionControl from '@/components/SessionControl.vue'
                                     </div>
                                 </div>
                                 
-                                <div v-if="!projectSelected">No Project selected!</div>
-                                <div v-if="projectSelected && !hasLogs">No logs yet</div>
+                                <div v-if="!projectSelected"><div class="px-3 py-3">No Project selected!</div></div>
+                                <div v-if="projectSelected && !hasLogs"><div class="px-3 py-3">No logs yet</div></div>
 
                             </div>
                         </div>
@@ -81,10 +81,15 @@ export default {
   data() {
     return {
       disabled: false,
-      throttleTO: null
+      throttleTO: null,
+      filterDateFrom: '',
+      filterDateTo: ''
     }
   },
   methods: {
+    isFiltered: function() {
+      return (this.filterDateFrom.trim() != '' || this.filterDateTo.trim() != '') ? true : false;
+    },
     scrollBottom: function() {
       let self = this
       
@@ -150,6 +155,23 @@ export default {
         } else {
           return false
         }
+      }
+    },
+    searchTimelogs: function() {
+      if (typeof this.timelogs.projectID == 'undefined' || this.timelogs.projectID == '') {
+        this.filterDateFrom = ''
+        this.filterDateTo = ''
+        alert('No Project selected!')
+        return
+      }
+
+      //console.log(dateF.isValid())
+
+      if (this.filterDateFrom == '' && this.filterDateTo == '') {
+        this.timelogs.refresh()
+        //return
+      } else {
+        this.timelogs.search(this.filterDateFrom, this.filterDateTo)
       }
     }
   },

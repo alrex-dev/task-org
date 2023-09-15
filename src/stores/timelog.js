@@ -196,6 +196,21 @@ export const useTimelogStore = defineStore('timelogs', () => {
 
     })
   }
+
+  function search(dateFrom, dateTo) {
+    const project = useProjectStore()
+    const projID = project.projID
+
+    if (typeof projID != 'undefined' && projID != '') {
+      let self = this
+
+      Axios.get(apiURL, {params: {projID: projID, dateFrom: dateFrom, dateTo: dateTo}}).then(function(response) {
+        self.data = response.data
+      })
+    } else {
+      data.value = []
+    }
+  }
   
   function refresh() {
     const project = useProjectStore()
@@ -277,5 +292,5 @@ export const useTimelogStore = defineStore('timelogs', () => {
   
   //this.init()
 
-  return { data, projectID, sessionStarted, sessionData, startSession, stopSession, addSession, saveTimelog, updateTimelog, deleteTimelog, refresh, computeHrDiffs, checkForExistingSession }
+  return { data, projectID, sessionStarted, sessionData, startSession, stopSession, addSession, saveTimelog, updateTimelog, deleteTimelog, search, refresh, computeHrDiffs, checkForExistingSession }
 })

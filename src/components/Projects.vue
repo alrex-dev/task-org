@@ -10,7 +10,7 @@ import { useActivityStore } from '@/stores/activity'
 </script>
 
 <template>
-  <div class="project">
+  <div class="project tab-pane fade show active" id="main-tab-pane">
     <div class="container-fluid">
       <div class="row">
         <div class="col col-12 col-md-6 p-0">
@@ -143,7 +143,7 @@ export default {
       let self = this
 
       this.$refs.timelogComponent.disableBox()
-      
+
       this.timelogs.checkForExistingSession(function() {
         //trigger checkExistingSession function in Session Control component
         self.$refs.timelogComponent.enableBox()
