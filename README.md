@@ -4,6 +4,7 @@ Task Organizer is a personal project used to manage the information such as time
 ## Backend
 The backend files are in a separate repository: [Task Org API](https://github.com/alrex-dev/task-org-api)  
 Backend is using PHP and MySL.    
+
 The URL for the Task Org API is declared in the stores/globals.js
 
 ## Recommended IDE Setup
