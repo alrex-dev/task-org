@@ -7,6 +7,10 @@ Backend is using PHP and MySL.
 
 The URL for the Task Org API is declared in the `stores/globals.js`
 
+## Demo
+
+Working Application link: https://task-org.alrexconsus.com/
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
