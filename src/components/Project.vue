@@ -4,7 +4,7 @@ import { useProjectStore } from '@/stores/project'
 import { useCredentialStore } from '@/stores/credential'
 import { useTimelogStore } from '@/stores/timelog'
 import { useActivityStore } from '@/stores/activity'
-import { Modal, Popover } from 'bootstrap'
+import { Modal, Popover, Tooltip } from 'bootstrap'
 </script>
 
 <template>
@@ -15,7 +15,7 @@ import { Modal, Popover } from 'bootstrap'
                 <div class="col col-7 p-0 d-flex align-items-center"><h2>Project Info</h2></div>
                 <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
                     <div class="search-with-dropdown-cont me-3">
-                        <input type="text" class="search-text" name="search-project" ref="search_input" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="searchProject" data-bs-toggle="popover" data-bs-placement="left" data-bs-title="FIRST THING TO DO" data-bs-content="Select a project here!" />
+                        <input type="text" class="search-text" name="search-project" ref="search_input" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="searchProject" />
                         <div class="search-results" :class="showResults">
                             <div class="search-results-inner">
                                 <div class="search-result-item" v-for="s in searchResults" :key="s.id">
@@ -95,9 +95,36 @@ export default {
   },
   mounted() {
     this.popup = new Modal('#addProjectPopup', {keyboard: false})
-    const popover = new Popover('#search-project', {show: true})
-    this.$refs.search_input.focus()
-    this.$refs.search_input.click()
+
+    if (this.project.showTooltip) {
+      this.popover = new Popover(this.$refs.search_input, {title: 'PROJECT', content: 'Select a Project here!', placement: 'left'})
+      this.$refs.search_input.focus()
+      this.$refs.search_input.click()
+
+      let self = this
+
+      document.addEventListener('mousedown', function(e) {
+        const target = e.target;
+
+        if (self.popover && self.popover.tip) {
+          if (target.id != 'search-project') {
+            self.$refs.search_input.click()
+            self.popover = new Popover(self.$refs.search_input, {disabled: true})
+          } else {
+            let self_ = self
+
+            setTimeout(function() {
+              self_.popover = new Popover(self_.$refs.search_input, {disabled: true})
+              //let tooltip = new Tooltip(self_.popover.tip, {disabled: true})
+
+              //console.log(tooltip)
+            }, 500)
+          }
+        }
+      })
+
+      this.project.showTooltip = false
+    }
   },
   emits: ['disableAllBoxes', 'enableAllBoxes', 'setProjectCallback', 'checkExistingSession'],
   expose: ['setProjDetails', 'disableBox', 'enableBox'],
@@ -113,7 +140,8 @@ export default {
       kw: '',
       searchResults: [],
       isEdit: false,
-      disabled: true
+      disabled: true,
+      popover: null
     }
   },
   methods: {
@@ -244,6 +272,28 @@ export default {
       //const cp = new child_process()
       //exec('start "" "c:\\Vue"')
       this.project.openProjectDir(this.projStorage)
+    },
+    hidePopover: function() {
+      if (this.popover.tip) {
+        let self = this
+
+        setTimeout(function() {
+          self.popover = new Popover(self.$refs.search_input, {disabled: true});
+        }, 500)
+        //let tooltip = new Tooltip(this.popover.tip)
+
+        //console.log(this.popover)
+        //console.log(tooltip)
+        //tooltip.disable()
+        //this.popover._element.removeAttribute('data-bs-toggle')
+        //this.popover._element.removeAttribute('data-bs-placement')
+        //this.popover._element.removeAttribute('data-bs-title')
+        //this.popover._element.removeAttribute('data-bs-content')
+        //console.log(document.querySelector('#' + popoverID))
+        //let popover = document.querySelector('#' + popoverID)
+        //popover.parentNode.removeChild(popover)
+        //popover.style.display = 'none';
+      }
     }
   },
   computed: {

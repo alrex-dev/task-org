@@ -14,6 +14,7 @@ export const useProjectStore = defineStore('project', () => {
   const data = ref([])
   const searchResults = ref([])
   const projID = ref('')
+  const showTooltip = ref(true)
   const apiURL = globals.apiURLRoot + '/task-org-api/?entity=project'
   const apiURL2 = globals.apiURLRoot + '/task-org-api/?entity=session'
   const apiURL3 = globals.apiURLRoot + '/task-org-api/?entity=nodetask'
@@ -147,5 +148,5 @@ export const useProjectStore = defineStore('project', () => {
     })
   }
   
-  return { projID, data, setProject, saveProject, updateProject, deleteProject, searchProjects, searchResults, refresh, checkForSession, createProjectDir, openProjectDir }
+  return { projID, data, showTooltip, setProject, saveProject, updateProject, deleteProject, searchProjects, searchResults, refresh, checkForSession, createProjectDir, openProjectDir }
 })
