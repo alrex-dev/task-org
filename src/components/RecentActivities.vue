@@ -19,7 +19,7 @@ import Projects from '@/components/Projects.vue'
             <tr v-for="a in getRecentActivities" :key="a.id">
               <td>{{formatActDate(a.act_date)}}</td>
               <td>{{a.proj_name}}</td>
-              <td>{{a.act_desc}}</td>
+              <td style="white-space: pre-wrap">{{a.act_desc}}</td>
             </tr>
           </tbody>
         </table>

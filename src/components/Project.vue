@@ -15,7 +15,7 @@ import { Modal, Popover } from 'bootstrap'
                 <div class="col col-7 p-0 d-flex align-items-center"><h2>Project Info</h2></div>
                 <div class="col col-5 p-0 d-flex align-items-center justify-content-end">
                     <div class="search-with-dropdown-cont me-3">
-                        <input type="text" class="search-text" name="search-project" ref="search_input" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="searchProject" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-title="FIRST THING TO DO" data-bs-content="Select a project here!" />
+                        <input type="text" class="search-text" name="search-project" ref="search_input" id="search-project" placeholder="Select a Project" v-model="kw" @keyup.prevent="searchProject" data-bs-toggle="popover" data-bs-placement="left" data-bs-title="FIRST THING TO DO" data-bs-content="Select a project here!" />
                         <div class="search-results" :class="showResults">
                             <div class="search-results-inner">
                                 <div class="search-result-item" v-for="s in searchResults" :key="s.id">
