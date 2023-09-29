@@ -76,11 +76,15 @@ export default {
       if ( self.isActivityComponentScope(e.target) && !enter ) {
         enter = true
         
-        self.$refs.scroller.addEventListener('scroll', self.locateTimelogs)
+        if (self.$refs.scroller) {
+          self.$refs.scroller.addEventListener('scroll', self.locateTimelogs)
+        }
       } else if ( !self.isActivityComponentScope(e.target) && enter) {
         enter = false
         
-        self.$refs.scroller.removeEventListener('scroll', self.locateTimelogs)
+        if (self.$refs.scroller) {
+          self.$refs.scroller.removeEventListener('scroll', self.locateTimelogs)
+        }
       }
     })
     

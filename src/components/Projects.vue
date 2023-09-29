@@ -10,7 +10,7 @@ import { useActivityStore } from '@/stores/activity'
 </script>
 
 <template>
-  <div class="project tab-pane fade show active" id="main-tab-pane">
+  <div class="project tab-pane fade show active">
     <div class="container-fluid">
       <div class="row">
         <div class="col col-12 col-md-6 p-0">
@@ -96,14 +96,17 @@ export default {
     })
     */
 
-    self.project.refresh()
-    self.cred.refresh()
-    self.timelogs.refresh()
-    self.activities.refresh()
+    this.project.refresh()
+    this.cred.refresh()
+    this.timelogs.refresh()
+    this.activities.refresh()
 
-    self.$refs.projectComponent.setProjDetails()
+    //console.log(this.project.data);
 
-    self.enableAllBoxes()
+    this.$refs.projectComponent.setProjDetails()
+    this.checkForExistingSession();
+
+    this.enableAllBoxes()
 
   },
   data: function () {

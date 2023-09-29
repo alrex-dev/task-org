@@ -66,11 +66,15 @@ export default {
       if ( self.isTimelogComponentScope(e.target) && !enter ) {
         enter = true
         
-        self.$refs.scroller.addEventListener('scroll', self.locateActions)
+        if (self.$refs.scroller) {
+          self.$refs.scroller.addEventListener('scroll', self.locateActions)
+        }
       } else if ( !self.isTimelogComponentScope(e.target) && enter) {
         enter = false
         
-        self.$refs.scroller.removeEventListener('scroll', self.locateActions)
+        if (self.$refs.scroller) {
+          self.$refs.scroller.removeEventListener('scroll', self.locateActions)
+        }
       }
     })
   },

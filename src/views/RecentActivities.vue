@@ -1,17 +1,17 @@
 <script setup>
-import Projects from '@/components/Projects.vue'
+import RecentActivities from '@/components/RecentActivities.vue'
 </script>
 
 <template>
   <div class="main-content-wrapper">
-    <Projects />
+    <RecentActivities />
   </div>
 </template>
 
 <script>
 export default {
   mounted() {
-    console.log('Dashboard loaded');
+    console.log('Recent Activities loaded');
   },
   data: function () {
     return {

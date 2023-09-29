@@ -83,14 +83,16 @@ export const useProjectStore = defineStore('project', () => {
   }
     
   function refresh() {
-    projID.value = ''
+    if (typeof data.value.pid == 'undefined') {
+      projID.value = ''
 
-    data.value = {
-      id: 0,
-      pid: '',
-      name: '',
-      desc: '',
-      storage: ''
+      data.value = {
+        id: 0,
+        pid: '',
+        name: '',
+        desc: '',
+        storage: ''
+      }
     }
   }
 
