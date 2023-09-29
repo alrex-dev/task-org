@@ -10,8 +10,8 @@ export const useCredentialStore = defineStore('credentials', () => {
   
   const data = ref([])
   const projectID = ref('')
-  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=credential'
-  const apiURL2 = globals.apiURLRoot + '/task-org-api/?entity=credential-group'
+  const apiURL = globals.apiURLRoot + '/?entity=credential'
+  const apiURL2 = globals.apiURLRoot + '/?entity=credential-group'
   
   function saveItem(groupid, label, value, callback) {
 

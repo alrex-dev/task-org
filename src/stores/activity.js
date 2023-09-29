@@ -12,7 +12,7 @@ export const useActivityStore = defineStore('activities', () => {
   
   const data = ref([])
   const projectID = ref('')
-  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=activity'
+  const apiURL = globals.apiURLRoot + '/?entity=activity'
   
   function init() {
     //check for active session

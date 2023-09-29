@@ -12,7 +12,7 @@ export const useRecentActivitiesStore = defineStore('recent_activities', () => {
   const hasMore = ref(false)
   const loading = ref(false)
   const lastDate = ref('')
-  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=recent-activities'
+  const apiURL = globals.apiURLRoot + '/?entity=recent-activities'
   
   function init() {
     //check for active session

@@ -15,9 +15,9 @@ export const useProjectStore = defineStore('project', () => {
   const searchResults = ref([])
   const projID = ref('')
   const showTooltip = ref(true)
-  const apiURL = globals.apiURLRoot + '/task-org-api/?entity=project'
-  const apiURL2 = globals.apiURLRoot + '/task-org-api/?entity=session'
-  const apiURL3 = globals.apiURLRoot + '/task-org-api/?entity=nodetask'
+  const apiURL = globals.apiURLRoot + '/?entity=project'
+  const apiURL2 = globals.apiURLRoot + '/?entity=session'
+  const apiURL3 = globals.apiURLRoot + '/?entity=nodetask'
     
   function init() {
     //check for active session
